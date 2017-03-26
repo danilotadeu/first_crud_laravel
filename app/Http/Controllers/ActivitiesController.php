@@ -59,16 +59,25 @@ class ActivitiesController extends Controller{
             $activities->save();
 
             // redirect
-            Session::flash('message', 'Successfully created activities!');
+            Session::flash('message', 'A atividade foi cadastrada com sucesso!');
             return Redirect::to('activities');
         }
     }
 
         public function edit($id){
 
-            $activities = Activities::find($id);
-
-            return view('activities.edit',['activities'=> $activities,'status'=>Status::all()->pluck('status','id')]);
+            $activities = Activities::with('status')->find($id);
+            if(!empty($activities)){
+                if($activities->status->status != 'Concluído'){
+                    return view('activities.edit',['activities'=> $activities,'status'=>Status::all()->pluck('status','id')]);
+                }else{
+                    Session::flash('message', 'A atividade foi concluída, impossível edita-la!');
+                    return Redirect::to('activities');
+                }
+            }else{
+                Session::flash('message', 'A atividade não foi encontrada!');
+                return Redirect::to('activities');
+            }
         }
 
         public function update($id){
@@ -95,7 +104,7 @@ class ActivitiesController extends Controller{
                 $activities->save();
 
             // redirect
-                Session::flash('message', 'Successfully updated activities!');
+                Session::flash('message', 'A atividade foi alterada com sucesso!');
                 return Redirect::to('activities');
             }
         }

@@ -3,6 +3,7 @@
 	<title>Atividades</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<link href="css/app.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
@@ -14,18 +15,21 @@
 		{{ Form::open(array('url' => 'activities','method' => 'GET')) }}
 			<div class="row">
 				<div class="pull-left col-md-4">
-					{{ Form::select('status_id', $status,null,['placeholder' => 'Selecione','class'=>'form-control']) }}
+					{{ Form::select('status_id', $status,null,['placeholder' => 'Todos','class'=>'form-control']) }}
 				</div>
 				<div class="pull-left col-md-4">
-					{{ Form::select('situation', [1=>'Ativo',0=>'Inativo'],null,['placeholder' => 'Selecione','class'=>'form-control']) }}
+					{{ Form::select('situation', [1=>'Ativo',0=>'Inativo'],null,['placeholder' => 'Todos','class'=>'form-control']) }}
 				</div>
 				<div class="pull-left col-md-2">
 					{{ Form::submit('Buscar', array('class' => 'btn btn-default')) }}
 				</div>
 			</div>
 		{{ Form::close() }}
-
-		{{ Session::get('message') }}
+		<?php if(!empty(Session::get('message'))){?>
+			<div class="notice notice-info">
+				<strong>Aviso!</strong> {{ Session::get('message') }}
+			</div>
+		<?php }?>
 
 		<table class="table">
 			<tr>

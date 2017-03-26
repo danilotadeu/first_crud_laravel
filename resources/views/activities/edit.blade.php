@@ -3,6 +3,7 @@
   <title>Atividades</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <link href="/css/app.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
@@ -11,8 +12,16 @@
         <div align="center">
             <h1>Editar Atividade</h1>
         </div>
-        {{ Session::get('message') }}
-        {{ Html::ul($errors->all()) }}
+        <?php if(!empty(Session::get('message'))){?>
+            <div class="notice notice-info">
+              <strong>Aviso!</strong> {{ Session::get('message') }}
+            </div>
+        <?php }?>
+        <?php if(!empty($errors->all())){?>
+          <div class="notice notice-danger">
+            <strong>Aviso!</strong> {{ Html::ul($errors->all()) }}
+          </div>
+          <?php }?>
         {{ Form::model($activities, array('route' => array('activities.update', $activities->id), 'method' => 'PUT')) }}
           <div class="form-group">
             <label class="control-label col-sm-2" for="email">Nome:</label>
