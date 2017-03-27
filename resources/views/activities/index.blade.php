@@ -8,10 +8,11 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div align="center">
 			<h1>Lista de Atividades</h1>
 		</div>
+		<hr />
 		{{ Form::open(array('url' => 'activities','method' => 'GET')) }}
 			<div class="row">
 				<div class="pull-left col-md-4">
